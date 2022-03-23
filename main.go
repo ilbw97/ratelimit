@@ -165,7 +165,6 @@ func init() {
 func limit(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
-		ApiRateLimitpolicy.Limiter.AllowN()
 		if ApiRateLimitpolicy.Limiter.Allow() == false {
 			log.Info("TOO MANY REQUESTS!!!")
 			http.Error(w, "TOO MANY REQUESTS!", http.StatusTooManyRequests)

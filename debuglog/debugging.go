@@ -41,8 +41,8 @@ func sortCustom(fields []string) {
 
 func DebugLogInit(logname string) *logrus.Logger {
 
-	cwflogrus := logrus.New()
-	wafFormatter := &logrus.TextFormatter{
+	debuglogrus := logrus.New()
+	debugFormatter := &logrus.TextFormatter{
 		DisableColors:    true,
 		CallerPrettyfier: findFunc,
 		ForceQuote:       true,
@@ -50,31 +50,28 @@ func DebugLogInit(logname string) *logrus.Logger {
 		SortingFunc:      sortCustom,
 	}
 
-	cwflogrus.SetReportCaller(true)
-	cwflogrus.SetFormatter(wafFormatter)
+	debuglogrus.SetReportCaller(true)
+	debuglogrus.SetFormatter(debugFormatter)
 
 	// path
-	// baselogpath := os.Getenv("DEBUG_DIR")
-
 	baselogpath, err := os.Getwd()
 	if err != nil {
 		fmt.Println("Cannot get CurrentDirectory")
 	}
 	if len(baselogpath) == 0 {
-		// baselogpath = "/monitorapp/debug"
 		baselogpath = "/Users/byeoungwoolee/go/src/apilimit"
 	}
 
 	// WAF LOG OUTPUT SETTING
-	cwflogpath := fmt.Sprintf("%s/%s.%d.log", baselogpath, logname, os.Getpid())
-	cwfLogOutput := lumberjack.Logger{
-		Filename:   cwflogpath,
+	debuglogpath := fmt.Sprintf("%s/%s.%d.log", baselogpath, logname, os.Getpid())
+	debugLogOutput := lumberjack.Logger{
+		Filename:   debuglogpath,
 		MaxSize:    500,
 		MaxBackups: 3,
 		MaxAge:     3,
 		Compress:   false,
 	}
 
-	cwflogrus.SetOutput(&cwfLogOutput)
-	return cwflogrus
+	debuglogrus.SetOutput(&debugLogOutput)
+	return debuglogrus
 }
