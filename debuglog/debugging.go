@@ -59,7 +59,7 @@ func DebugLogInit(logname string) *logrus.Logger {
 		fmt.Println("Cannot get CurrentDirectory")
 	}
 	if len(baselogpath) == 0 {
-		baselogpath = "/Users/byeoungwoolee/go/src/apilimit"
+		baselogpath = "./"
 	}
 
 	// WAF LOG OUTPUT SETTING
