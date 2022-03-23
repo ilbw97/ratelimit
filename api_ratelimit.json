@@ -1,0 +1,41 @@
+{
+    "enable": true, 
+    "id": 1,
+    "name": "API RATE LIMIT",
+    "detect_client_ip": {
+        "apply_ip": [
+            "0.0.0.0", "1.2.3.4"
+        ],
+        "except_ip": [
+            "2.3.4.5", "5.4.3.2"
+        ],
+        "apply_ip_group": [
+            9
+        ],
+        "except_ip_group": [
+            5
+        ]
+    },
+    "detect_target": {
+        "path": [
+            "/getPerson", "/getDog"
+        ]
+    },
+    "detect_condition": {
+        "totalcount": 5,
+        "method": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE"
+        ]
+    },
+    "detect_behavior": {
+        "action": "BLOCK",
+        "log": true,
+        "mail": true,
+        "severity": "MEDIUM",
+        "page":1
+    },
+    "explain": ""
+}
