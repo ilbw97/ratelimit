@@ -15,7 +15,7 @@ import (
 )
 
 type WafPolicy struct {
-	APIRateLimit []*APIRatelimitInfo
+	APIRateLimit []*APIRatelimit
 }
 
 var log *logrus.Logger = &logrus.Logger{}
@@ -24,7 +24,7 @@ type apiratelimitupdate struct {
 	Orgid    int `json:"orgid"`
 	Domainid int `josn:"domainid"`
 }
-type APIRatelimitInfo struct {
+type APIRatelimit struct {
 	Enable          bool            `json:"enable"`
 	ID              int64           `json:"id"`
 	Name            string          `json:"name"`
@@ -103,10 +103,10 @@ func ApiRateLimitUpdate() {
 	}
 }
 
-var ApiRateLimitpolicy *APIRatelimitInfo
+var ApiRateLimitpolicy *APIRatelimit
 
-func ApiRateLimitParser(body []byte) *APIRatelimitInfo {
-	var temppolicy *APIRatelimitInfo
+func ApiRateLimitParser(body []byte) *APIRatelimit {
+	var temppolicy *APIRatelimit
 
 	err := json.Unmarshal(body, &temppolicy)
 	if err != nil {
@@ -115,16 +115,6 @@ func ApiRateLimitParser(body []byte) *APIRatelimitInfo {
 	}
 
 	temppolicy.Limiter = rate.NewLimiter(rate.Every(1*time.Second), int(temppolicy.DetectCondition.Totalcount))
-
-	// for _, policy := range ApiRateLimitpolicys {
-	// 	log.Infof("Enable : %v, ID : %v, Name : %v", policy.Enable, policy.ID, policy.Name)
-	// 	log.Infof("DetectClientIP.ApplyIP : %v, DetectClient.ApplyIPGroup", policy.DetectClientIP.ApplyIP, policy.DetectClientIP.ApplyIPGroup)
-	// 	log.Infof("DetectClientIP.ExceptIP : %v, DetectClient.ExceptIPGroup", policy.DetectClientIP.ExceptIP, policy.DetectClientIP.ExceptIPGroup)
-	// 	log.Infof("DetectTarget : %v", policy.DetectTarget)
-	// 	log.Infof("DetectCondition.Totalcount : %v, DetectCondition.Method : %v", policy.DetectCondition.Totalcount, policy.DetectCondition.Method)
-	// 	log.Infof("DetectBehavior.Action : %v, DetectBehavior.Log : %v, policy.DetectBehavior.Mail : %v, policy.DetectBehavior.Severity : %v, policy.DetectBehavior.Page : %v", policy.DetectBehavior.Action, policy.DetectBehavior.Log, policy.DetectBehavior.Mail, policy.DetectBehavior.Severity, policy.DetectBehavior.Page)
-	// 	log.Infof("Explain : %v", policy.Explain)
-	// }
 
 	return temppolicy
 }

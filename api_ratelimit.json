@@ -1,41 +1,126 @@
-{
-    "enable": true, 
-    "id": 1,
-    "name": "API RATE LIMIT",
-    "detect_client_ip": {
-        "apply_ip": [
-            "0.0.0.0", "1.2.3.4"
-        ],
-        "except_ip": [
-            "2.3.4.5", "5.4.3.2"
-        ],
-        "apply_ip_group": [
-            9
-        ],
-        "except_ip_group": [
-            5
-        ]
+[
+    {
+        "enable": true, 
+        "id": 1,
+        "name": "API RATE LIMIT",
+        "detect_client_ip": {
+            "apply_ip": [
+                "0.0.0.0", "1.2.3.4"
+            ],
+            "except_ip": [
+                "2.3.4.5", "5.4.3.2"
+            ],
+            "apply_ip_group": [
+                9
+            ],
+            "except_ip_group": [
+                5
+            ]
+        },
+        "detect_target": {
+            "apply_url": [
+                "/cloud1"
+            ],
+            "except_url": [
+                "/cloud2"
+            ]
+        },
+        "detect_condition": {
+            "totalcount": 5,
+            "method": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+            ]
+        },
+        "detect_behavior": {
+            "action": "BLOCK",
+            "log": true,
+            "page":1
+        },
+        "explain": ""
     },
-    "detect_target": {
-        "path": [
-            "/getPerson", "/getDog"
-        ]
+    {
+        "enable": true, 
+        "id": 2,
+        "name": "API RATE LIMIT",
+        "detect_client_ip": {
+            "apply_ip": [
+                "0.0.0.0", "1.2.3.4"
+            ],
+            "except_ip": [
+                "2.3.4.5", "5.4.3.2"
+            ],
+            "apply_ip_group": [
+                9
+            ],
+            "except_ip_group": [
+                5
+            ]
+        },
+        "detect_target": {
+            "apply_url": [
+                "/cloud2"
+            ],
+            "except_url": [
+                "/cloud3"
+            ]
+        },
+        "detect_condition": {
+            "totalcount": 5,
+            "method": [
+                "GET",
+                "POST",
+                "PUT",
+                "DELETE"
+            ]
+        },
+        "detect_behavior": {
+            "action": "DETECT",
+            "log": true,
+            "page":1
+        },
+        "explain": ""
     },
-    "detect_condition": {
-        "totalcount": 5,
-        "method": [
-            "GET",
-            "POST",
-            "PUT",
-            "DELETE"
-        ]
-    },
-    "detect_behavior": {
-        "action": "BLOCK",
-        "log": true,
-        "mail": true,
-        "severity": "MEDIUM",
-        "page":1
-    },
-    "explain": ""
-}
+    {
+        "enable": true, 
+        "id": 3,
+        "name": "API RATE LIMIT",
+        "detect_client_ip": {
+            "apply_ip": [
+                "0.0.0.0", "1.2.3.4"
+            ],
+            "except_ip": [
+                "2.3.4.5", "5.4.3.2"
+            ],
+            "apply_ip_group": [
+                9
+            ],
+            "except_ip_group": [
+                5
+            ]
+        },
+        "detect_target": {
+            "apply_url": [
+                "/cloud3"
+            ],
+            "except_url": [
+                "/cloud4"
+            ]
+        },
+        "detect_condition": {
+            "totalcount": 5,
+            "method": [
+                "POST",
+                "GET"
+            ]
+        },
+        "detect_behavior": {
+            "action": "DETECT",
+            "log": true,
+            "page":1
+        },
+        "explain": ""
+    }
+]
